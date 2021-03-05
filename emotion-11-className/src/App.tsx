@@ -51,6 +51,7 @@ let startTime: null | number = null;
 
 function App() {
   const [showList, setShowList] = useState(false);
+  const [renderTime, setRenderTime] = useState<number | undefined>();
 
   useEffect(() => {
     if (!showList) {
@@ -64,12 +65,13 @@ function App() {
       console.log(`startTime ${startTime}`);
       console.log(`endTime ${endTime}`);
       console.log(`Render time ${endTime - startTime}`);
+      setRenderTime(endTime - startTime);
     }
-  }, [showList, setShowList]);
+  }, [showList, setShowList, setRenderTime]);
 
   return (
     <div>
-      <button onClick={() => setShowList(true)}>Show list of users</button>
+      {renderTime && <h1>Render time {renderTime}</h1>}
       {showList && (
         <div
           className={css`
